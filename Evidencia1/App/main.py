@@ -17,32 +17,36 @@ def opcion1_login():
     suma = 0
     while True: 
         user = input("Ingresá tu nombre de usuario: ")
-        if user not in users:
-            print("Usuario incorrecto. Intentá de nuevo.")
-        else:
-            break
-    while suma != 4:
-        password = input("Ingresá tu constraseña: ")
-        if password not in users.values():
-            print("La contraseña es incorrecta. Intentá de nuevo.")
-            #Cada que el usuario ingrese mal la contraseña, se suma un intento al contador
-            suma = suma + 1
-            if suma == 2:
-                print("Segundo intento fallido, al cuarto intento fallido se bloqueará la cuenta.")
-            elif suma == 3:
-                print("Tercer intento fallido, al cuarto intento fallido se bloqueará la cuenta.")
-                #Cuando llega al cuarto intento, se le da mensaje de bloqueo y termina el programa
-            elif suma == 4:
-                print("Cuarto intento fallido, se ha bloqueado el acceso.")
-                return
-        else:
-            break
-        #Si los datos están bien se dará el siguiente mensaje:
-    print("¡Usuario ingresado con éxito!")
+        if user in users:
+            while suma < 4:
+                password = input("Ingresá tu constraseña: ")
 
-if opcion == "1":
-    opcion1_login()
-elif opcion == "2":
-    opcion2_register()
-else:
-    print("Ingresá una opción válida.")
+                if users[user] == password:
+                    print("¡Usuario ingresado con éxito!")
+                    break
+                    #Cada que el usuario ingrese mal la contraseña, se suma un intento al contador
+                else:
+                    suma += 1
+                    print("La contraseña es incorrecta. Intentá de nuevo.")
+                    
+                    if suma == 2:
+                        print("Segundo intento fallido, al cuarto intento fallido se bloqueará la cuenta.")
+                    elif suma == 3:
+                        print("Tercer intento fallido, al cuarto intento fallido se bloqueará la cuenta.")
+                        #Cuando llega al cuarto intento, se le da mensaje de bloqueo y termina el programa
+                if suma == 4:
+                    print("Cuarto intento fallido, se ha bloqueado el acceso.")
+                    return
+            break
+        else:
+            print("El usuario no existe. Intentá de nuevo.")
+            
+while True:
+    if opcion == "1":
+        opcion1_login()
+        break
+    elif opcion == "2":
+        opcion2_register()
+        break
+    else:
+        print("Ingresá una opción válida.")
