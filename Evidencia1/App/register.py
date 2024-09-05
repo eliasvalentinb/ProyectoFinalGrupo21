@@ -44,6 +44,7 @@ def user_pass():
         if len(password) < 8:
             print("La contraseña debe tener al menos 8 caracteres.")
 
+        # Nos aseguramos de que la contraseña cumpla con las características solicitadas
         with_numbers = any(char.isdigit()for char in password) 
         with_symbols = any(not char.isalnum()for char in password)
         with_upper = any(char.isupper()for char in password)
