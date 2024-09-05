@@ -1,12 +1,13 @@
 #En este módulo se controlara el flujo principal del programa
-
-from register import opcion2_register
+import time
+from register import opcion2_register, captcha, user_pass
 
 print("¡Bienvenido a la aplicación!")
 print("Pulse 1 para ingresar: ")
 print("Pulse 2 para registrarse: ")
 
 #Definimos un diccionario con dos usuarios de prueba y sus respectivas contraseñas
+# NOTA: en caso de reestablecer la contraseña, esta se actualizará en el diccionario
 users = {"elias18": "Hola$oy_3lias", "sofia23": "Hol4soy_$ofi"}
 
 opcion = input("Ingresá una opción: ")
@@ -19,9 +20,23 @@ def opcion1_login():
         user = input("Ingresá tu nombre de usuario: ")
         if user in users:
             while suma < 4:
-                password = input("Ingresá tu constraseña: ")
+                olvi = input("¿Olvidaste tu contraseña? \nPresioná 1 para ingresar \no presiona 1 para reestablecerla: ")
+                if olvi == "2":
+                        captcha() # Pedimos el captcha para reestablecer la contraseña
+                        print("Ahora, ingresá la nueva contraseña.")
+                        print("-" * 30)
+                        time.sleep(0.5)
+                        nueva_contrasena = user_pass()
+                        users[user] = nueva_contrasena # Actualiza el diccionario con la nueva clave
+                        print("La contraseña se reestableció con éxito. \nIngresá nuevamente.")
+                        print("-" * 30)
+                        time.sleep(0.5)
+                        continue
 
-                if users[user] == password:
+                elif olvi == "1":
+                    password = input("Ingresá tu constraseña: ")
+
+                if 'password' in locals() and users[user] == password:  # Asegura que 'password' esté definido
                     print("¡Usuario ingresado con éxito!")
                     break
                     #Cada que el usuario ingrese mal la contraseña, se suma un intento al contador
@@ -30,10 +45,11 @@ def opcion1_login():
                     print("La contraseña es incorrecta. Intentá de nuevo.")
                     
                     if suma == 2:
-                        print("Segundo intento fallido, al cuarto intento fallido se bloqueará la cuenta.")
+                        print("Segundo intento fallido, \nal cuarto intento fallido se bloqueará la cuenta.")
                     elif suma == 3:
-                        print("Tercer intento fallido, al cuarto intento fallido se bloqueará la cuenta.")
-                        #Cuando llega al cuarto intento, se le da mensaje de bloqueo y termina el programa
+                        print("Tercer intento fallido, \nal cuarto intento fallido se bloqueará la cuenta.")
+                        
+                    #Cuando llega al cuarto intento, se le da mensaje de bloqueo y termina el programa
                 if suma == 4:
                     print("Cuarto intento fallido, se ha bloqueado el acceso.")
                     return

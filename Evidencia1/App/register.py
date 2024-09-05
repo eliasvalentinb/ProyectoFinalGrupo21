@@ -15,6 +15,7 @@ def opcion2_register():
     correo_usuario()
     fecha_nac_usuario()
     captcha()
+    print("¡Felicidades! Te registraste con éxito.")
 
 # Primero se pedirá el usuario
 def user():
@@ -60,6 +61,7 @@ def user_pass():
                 print("La contraseña debe tener al menos una mayúscula.")
             if not with_lower:
                 print("La contraseña debe tener al menos una minúscula.")
+    return password
 
 # Luego nombre, apellido, dni
 def nombre_dni():
@@ -115,7 +117,7 @@ def captcha():
         resultado_correcto = funcion_operacion(a, b)
 
         if resultado == resultado_correcto:
-            print("¡Felicidades! Te registraste con éxito.")
+            print("La respuesta es correcta.")
             break
         else:
             print(f"Incorrecto. La respuesta correcta era {resultado_correcto}. Intenta de nuevo.\n")
