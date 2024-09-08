@@ -5,4 +5,4 @@ Detallamos qué hallarán en cada carpeta:
 **EVIDENCIA 1 / APLICACIÓN**: carpeta contenedora de todos los archivos solicitados para la evidencia 1.
 **Documentos / Base de datos**: archivos "cimientos" de nuestra futura app, tales como la estructura del proyecto, los detalles de la base de datos, y el DER.
 **__pycache__**: archivos Python, solicitados desde Programación I, tales como "aritmética.cpython-312.pyc" y "registro.cpython-312.pyc".
-Y luego, los archivos propios solicitados desde Programación I, tales como "principal.py" y "prueba_aritmetica.py".
+Y luego, los archivos propios solicitados desde Programación I, tales como "aritmetica.py", "principal.py", "registrarse.py" y "prueba_aritmetica.py".
