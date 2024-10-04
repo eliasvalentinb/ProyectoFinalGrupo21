@@ -8,7 +8,7 @@
 *6.- Lourdes Ferreyra Farías
 
 En la siguiente carpeta, de Evidencia2, encontraremos un proyecto de trabajo en donde anexamos a nuestra evidencia 1, ya presentada, un sistema para el AGREGADO, MODIFICADO GUARDADO y ELIMINADO de usuarios (clientes) de nuestra tienda. 
-Un menú desplegable y facil de usar, permite esto, desarroyado exclucivamente en python. Ademas, ideamos para la manipulacion de estos datos sensibles, una base de datos en donde se podra tener un seguimiento de los mismos.
+Un menú desplegable y facil de usar permite esto, desarrollado exclucivamente en python. Ademas, ideamos para la manipulacion de estos datos sensibles, una base de datos en donde se podra tener un seguimiento de los mismos.
 
 ARCHIVOS que Existen en la carpeta EVIDENCIA2:
 CARPETA Basededatos: Archivo BBDD_Tienda Online_Final (contiene el creado de tablas de la bases de datos) y el Archivo Consigna de Evidencia 2 (contiene las consltas sql solicitadas)
