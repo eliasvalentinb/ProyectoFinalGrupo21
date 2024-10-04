@@ -12,7 +12,7 @@ Un menú desplegable y facil de usar permite esto, desarrollado exclucivamente e
 
 ARCHIVOS que Existen en la carpeta EVIDENCIA2:
 CARPETA Basededatos: Archivo BBDD_Tienda Online_Final (contiene el creado de tablas de la base de datos) y el Archivo Consigna de Evidencia 2 (contiene las consltas sql solicitadas)
-CARPETA Programacion1: Archivo 1 PROGRAMA COMPLETO (contiene el menu completo para el crud de los usuarios) y los demas archivos pyton por separados que forman al menu antes mencionado)
+CARPETA Programacion1: Archivo 1 PROGRAMA COMPLETO (contiene el menu completo para el crud de los usuarios) y los demas archivos python por separados que forman al menu antes mencionado)
 
 ¿Es necesario instalar algo además de python para ejecutar el programa?
 Para poder usar y poder ejecutar de manera correcta el archivo python (1 PROGRAMA COMPLETO) debemos instalar la libreria pickle y esto se hace con el siguiente comando  
