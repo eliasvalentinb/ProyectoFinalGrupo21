@@ -11,7 +11,7 @@ En la siguiente carpeta, de Evidencia2, encontraremos un proyecto de trabajo en 
 Un menú desplegable y facil de usar permite esto, desarrollado exclucivamente en python. Ademas, ideamos para la manipulacion de estos datos sensibles, una base de datos en donde se podra tener un seguimiento de los mismos.
 
 ARCHIVOS que Existen en la carpeta EVIDENCIA2:
-CARPETA Basededatos: Archivo BBDD_Tienda Online_Final (contiene el creado de tablas de la bases de datos) y el Archivo Consigna de Evidencia 2 (contiene las consltas sql solicitadas)
+CARPETA Basededatos: Archivo BBDD_Tienda Online_Final (contiene el creado de tablas de la base de datos) y el Archivo Consigna de Evidencia 2 (contiene las consltas sql solicitadas)
 CARPETA Programacion1: Archivo 1 PROGRAMA COMPLETO (contiene el menu completo para el crud de los usuarios) y los demas archivos pyton por separados que forman al menu antes mencionado)
 
 ¿Es necesario instalar algo además de python para ejecutar el programa?
