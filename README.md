@@ -14,10 +14,10 @@ ARCHIVOS que Existen en la carpeta EVIDENCIA2:
 CARPETA Basededatos: Archivo BBDD_Tienda Online_Final (contiene el creado de tablas de la base de datos) y el Archivo Consigna de Evidencia 2 (contiene las consultas SQL solicitadas)
 CARPETA Programacion1: Archivo 1 PROGRAMA COMPLETO (contiene el menú completo para el crud de los usuarios) y los demás archivos Python, por separados, que forman al menú antes mencionado)
 
-En cuanto a la primera pregunta disparadora, ¿Es necesario instalar algo, además de Python, para ejecutar el programa?, nuestra respuesta es la siguiente.
+En cuanto a una de las preguntas disparadoras, ¿Es necesario instalar algo, además de Python, para ejecutar el programa?, nuestra respuesta es la siguiente.
 Para poder usar y poder ejecutar de manera correcta el archivo Python (1 PROGRAMA COMPLETO), debemos instalar la libreria pickle y esto se hace con el siguiente comando pip install pickle-mixin
 
-¿Cómo ejecutar y probar este programa?
+Respecto de otra de las preguntas disparadoras, ¿Cómo ejecutar y probar este programa?, nuestra respuesta está a continuación.
 Con solo abrir el programa (1 PROGRAMA COMPLETO), se encontrarán con un menú de opciones enumeradas que ejecutan distintas consignas, como el agregado y eliminado de usuarios, entre otros.
 
 
