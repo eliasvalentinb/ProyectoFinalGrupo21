@@ -163,56 +163,106 @@ def ordenar_quick_sort(usuarios):
         print(f"ID: {usuario.id}, nombre de usuario: {usuario.nombre_usuario}, Email: {usuario.email}")
 
 # ********** REGISTROS PLUVIALES ****************
-
-class RegistroPluvial:
-    def __init__(self, id, fecha, cantidad):
-        self.id = id
-        self.fecha = fecha
-        self.cantidad = cantidad
-
-def cargar_registros_pluviales():
-    try:
-        with open('registros_pluviales.ispc', 'rb') as file:
-            return pickle.load(file)
-    except FileNotFoundError:
-        return []
-
-def guardar_registros_pluviales(registros):
-    with open('registros_pluviales.ispc', 'wb') as file:
-        pickle.dump(registros, file)
-
-def mostrar_registros_pluviales(registros):
-    if not registros:
-        print("No hay registros pluviales disponibles.")
-        return
-    for registro in registros:
-        print(f"ID: {registro.id}, Fecha: {registro.fecha}, Cantidad de lluvia: {registro.cantidad} mm")
-
+import pandas as pd
+import numpy as np
+import os
 import random
-
-def generar_registros_pluviales():
-    # Crear una lista para los 12 meses
-    registros_anuales = []
+import matplotlib.pyplot as plt
+#--------------------------------------------------------
+def generar_registros_aleatorios(año):
+    # Genera registros pluviales aleatorios
+    registros = []
+    dias_en_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
-    # Definir el número de días en cada mes 
-    dias_por_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    for mes in range(12):
+        dias = dias_en_mes[mes]
+        mes_registros = [random.randint(0, 100) for _ in range(dias)]
+        registros.append(mes_registros)
 
-    for dias in dias_por_mes:
-        # Generar una lista de días con lluvia aleatoria
-        mes = [random.randint(0, 100) for _ in range(dias)]  # Lluvia entre 0 y 100 mm
-        registros_anuales.append(mes)
 
-    return registros_anuales
+    # Guardar los registros en un DataFrame y exportar a CSV
+    df = pd.DataFrame(registros).T
+    df.columns = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    df.to_csv(f'registroPluvial{año}.csv', index=False)
 
-# Ejemplo de uso
-registros_pluviales = generar_registros_pluviales()
-for mes_idx, mes in enumerate(registros_pluviales):
-    print(f"Mes {mes_idx + 1}: {mes}")
+    return df
+#----------------------------------------------------------------------------------------------------
+# Si no encuentra el archivo, genera uno aleatorio llamando la funcion generar_refistros-aleatorios
+def cargar_registros(año):
+    nombre_archivo = f'registroPluvial{año}.csv'
+    
+    if os.path.exists(nombre_archivo):
+        df = pd.read_csv(nombre_archivo)
+        print(f"Registros cargados del archivo {nombre_archivo}.")
+        return df
+    else:
+        print(f"No se encontró el archivo. Generando informacion para el año {año}.")
+        return generar_registros_aleatorios(año)
+#-----------------------------------------------------------------------------------------------------
+#mostrar los Registro de un mes en particular
+def mostrar_registros_mes(df, mes):  #recibe dos argumentos dataFrame y nombre del mes
+    meses = {
+        'Enero': 0,
+        'Febrero': 1,
+        'Marzo': 2,
+        'Abril': 3,
+        'Mayo': 4,
+        'Junio': 5,
+        'Julio': 6,
+        'Agosto': 7,
+        'Septiembre': 8,
+        'Octubre': 9,
+        'Noviembre': 10,
+        'Diciembre': 11,
+    }
+    
+    mes_index = meses.get(mes)
+    if mes_index is not None:
+        print(f"Registros de {mes}:")
+        # Selecciona los registros de lluvia y elimina los nulos
+        registros = df.iloc[:, mes_index].dropna() #dropna elimina valores nulos
+        
+        # Imprime los días (índices + 1) para no mostrar un dia 0 y sus correspondientes registros
+        for i, valor in enumerate(registros):
+            print(f"Día {i + 1}: {valor} mm") 
+    else:
+        print("Mes no válido.")
+#-------------------------------------------------------------------------
+# ********** GENERA GRAFICAS ****************
+
+def graficar_lluvias(df, año):
+    df_sum = df.sum()
+    
+    # Gráfico de barras
+    plt.figure(figsize=(10, 6))
+    df_sum.plot(kind='bar', color='skyblue')
+    plt.title(f'Precipitación Anual en el Año {año}')
+    plt.xlabel('Meses')
+    plt.ylabel('Milímetros')
+    plt.show()
+    
+    # Gráfico de dispersión
+    plt.figure(figsize=(10, 6))
+    for i, mes in enumerate(df.columns):
+        plt.scatter([i + 1] * len(df[mes]), df[mes], label=mes)
+    plt.title('Dispersión de Precipitaciones')
+    plt.xlabel('Meses')
+    plt.ylabel('Milímetros')
+    plt.xticks(range(1, 13), df.columns, rotation=45)
+    plt.show()
+    
+    # Gráfico circular
+    plt.figure(figsize=(10, 6))
+    df_sum.plot(kind='pie', autopct='%1.1f%%')
+    plt.title(f'Precipitación Anual por Mes en el Año {año}')
+    plt.ylabel('')
+    plt.show()
 
 #*********** MENU PRINCIPAL *******************
 def menu_principal():
     usuarios = cargar_usuarios() #carga en variable los usuarios
-    registros_pluviales = cargar_registros_pluviales()
+    #registros_pluviales = cargar_registros()
     print(usuarios)
     while True:
         print("\nMenú Principal")
@@ -224,7 +274,8 @@ def menu_principal():
         print("6. Mostrar Todos los Usuarios")
         print("7. Ingresar al Sistema")
         print("8. Mostrar registros pluviales")
-        print("9. Salir")
+        print("9. Graficar registros pluviales")
+        print("10. Salir")
         opcion = input("Seleccione una opción: ")
 
         if opcion == '1':
@@ -264,8 +315,17 @@ def menu_principal():
                 print("Nombre de usuario o password incorrectos.")
                 registrar_logueo_fallido(nombre_usuario, password)
         elif opcion == '8':
-            mostrar_registros_pluviales(registros_pluviales)
+             año = int(input("Ingrese el año (ej. 2023): "))
+             df = cargar_registros(año)
+             mes1 = input("Ingrese el mes que desea consultar (ej. Enero): ")
+             mes=mes1.capitalize() #pone en mayuscula la primer letra
+             mostrar_registros_mes(df, mes)
+
         elif opcion == '9':
+             año = int(input("Ingrese el año (ej. 2023): "))
+             df = cargar_registros(año)
+             graficar_lluvias(df, año)       
+        elif opcion == '10':
             exit()
         else:
             print("Opción no válida.")
