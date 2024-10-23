@@ -3,7 +3,7 @@
 *1.- Elías Valdez
 *2.- Federico Cordoba
 *3.- Adriel Delosanto
-*4.- Yesica Pesqueira
+
 
 En la siguiente carpeta, de Evidencia3, encontraremos un proyecto de trabajo en donde anexamos a nuestra evidencia 2 ya presentada anteriormente. Un registro  de usuarios como el acceso se le anexo y tambien se le sumo un regitro flubial mensual en donde se puede ver la info guarda generando graficos en donde muestren dicha informacion de manera mas facil de leer y entendible.
 Su respectivo archivo BBDD tambien fue adaptado para poder guardar dichos datos nuevos pedidos.
