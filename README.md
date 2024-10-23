@@ -9,6 +9,15 @@ En la siguiente carpeta, de Evidencia3, encontraremos un proyecto de trabajo en 
 Su respectivo archivo BBDD tambien fue adaptado para poder guardar dichos datos nuevos pedidos.
 
 ARCHIVOS que Existen en la carpeta EVIDENCIA3:
+BasedeDatos: encontraremos el script sql que utilizado para la correcta creacion de la base de datos 
+Programcion1: contiene 4 archivos python donde se detallan los siguientes: 1 PROGRAMA COMPLETO Ev3 en donde contiene todo lo de la evidencia 2 pedida pero se le sumo el acceso y el registro de usuario como asi tambien los registros fluviales pedidos en esta evidencia.
+Conectar_desconectar,  n donde tiene la conexion y la desconeccion del programa principal a la bases de datos misma
+Consultas y filtrados, donde podran hacer consultas de los usuarios cargados en nuestra bases de datos 
+Registro de Lluvias con Graficos donde podremos cargar un registro detallado y prolijo fluvial, como asi tambien poder generar graficos con dicha informacion cargada, para una mejor compresion y lectura.
+En cuanto a una de las preguntas disparadoras, ¿Es necesario instalar algo, además de Python, para ejecutar el programa?, nuestra respuesta es la siguiente.
+Para poder usar y poder ejecutar de manera correcta el archivo Python (1 PROGRAMA COMPLETO Ev3), debemos instalar la libreria pickle y esto se hace con el siguiente comando pip install pickle-mixin 
+Tambien las librerias pandas y numpy ( con los siguientes comandos pip install pandas y pip install numpy) y la siguiente que es matplotlib (pip install matplotlib)
+para la coneccion con la base de datos necesitamos instalar el comando  -m pip install mysql-connector-python
 
 
 
