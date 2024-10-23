@@ -188,13 +188,26 @@ def mostrar_registros_pluviales(registros):
     for registro in registros:
         print(f"ID: {registro.id}, Fecha: {registro.fecha}, Cantidad de lluvia: {registro.cantidad} mm")
 
-def agregar_registro_pluvial(registros):
-    id = len(registros) + 1
-    fecha = input("Ingrese la fecha (YYYY-MM-DD): ")
-    cantidad = float(input("Ingrese la cantidad de lluvia en mm: "))
-    registros.append(RegistroPluvial(id, fecha, cantidad))
-    guardar_registros_pluviales(registros)
-    print("Registro pluvial agregado exitosamente.")
+import random
+
+def generar_registros_pluviales():
+    # Crear una lista para los 12 meses
+    registros_anuales = []
+    
+    # Definir el número de días en cada mes 
+    dias_por_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    for dias in dias_por_mes:
+        # Generar una lista de días con lluvia aleatoria
+        mes = [random.randint(0, 100) for _ in range(dias)]  # Lluvia entre 0 y 100 mm
+        registros_anuales.append(mes)
+
+    return registros_anuales
+
+# Ejemplo de uso
+registros_pluviales = generar_registros_pluviales()
+for mes_idx, mes in enumerate(registros_pluviales):
+    print(f"Mes {mes_idx + 1}: {mes}")
 
 #*********** MENU PRINCIPAL *******************
 def menu_principal():
@@ -260,4 +273,3 @@ def menu_principal():
 if __name__ == "__main__":
     menu_principal()
 
-    
