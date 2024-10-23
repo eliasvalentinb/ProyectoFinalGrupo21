@@ -1,12 +1,20 @@
 # ProyectoFinalGrupo21
-# EVIDENCIA 2 
+# EVIDENCIA 3 
 *1.- Elías Valdez
 *2.- Federico Cordoba
 *3.- Adriel Delosanto
 *4.- Yesica Pesqueira
-*5.- María Celeste Montivero
-*6.- Lourdes Ferreyra Farías
 
+En la siguiente carpeta, de Evidencia3, encontraremos un proyecto de trabajo en donde anexamos a nuestra evidencia 2 ya presentada anteriormente. Un registro  de usuarios como el acceso se le anexo y tambien se le sumo un regitro flubial mensual en donde se puede ver la info guarda generando graficos en donde muestren dicha informacion de manera mas facil de leer y entendible.
+Su respectivo archivo BBDD tambien fue adaptado para poder guardar dichos datos nuevos pedidos.
+
+ARCHIVOS que Existen en la carpeta EVIDENCIA3:
+
+
+
+
+
+#EVIDENCIA 2
 En la siguiente carpeta, de Evidencia2, encontraremos un proyecto de trabajo en donde anexamos a nuestra evidencia 1, ya presentada anteriormente, un sistema para el AGREGADO, MODIFICADO GUARDADO y ELIMINADO de usuarios (clientes) de nuestra tienda. 
 Un menú desplegable y fácil de usar permite esto, desarrollado exclusivamente en Python. Además, ideamos, para la manipulación de estos datos sensibles, una base de datos en donde se podrá tener un seguimiento de los mismos.
 
