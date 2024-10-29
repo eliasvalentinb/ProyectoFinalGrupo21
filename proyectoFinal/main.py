@@ -1,131 +1,89 @@
+import gestionUsuario
+import registrosPluviales 
+import gestionAccesos
 
+#MENU PRINCIPAL
 def menu_principal():
-    print("¡Bienvenido al menú principal!")
-    print("1. Gestión de Usuarios y Accesos")
-    print("2. Ingresar al sistema")
-    print("3. Análisis de Datos")
-    print("4. Salir de la aplicación")
 
-    opcion = input("Seleccioná una opción: ")
-    return opcion
-
-def menu_Usuarios_Accesos():
     while True:
-        print(" \n------------------------------")
-        print("| GESTIÓN DE USUARIOS Y ACCESOS |")
-        print(" ------------------------------")
-
-        print("a. CRUD de usuarios")
-        print("b. Mostrar datos de accesos")
-        print("c. Ordenamiento y búsqueda de usuarios")
-        print("d. Volver al Menú Principal")
-
-        opcion = input("Seleccioná una opción: ").lower()
-
-        if opcion == 'a':
-            menu_crud_usuarios()
-        elif opcion == 'b':
-            menu_mostrar_accesos()
-        elif opcion == 'c':
-            menu_ordenamiento_busqueda()
-        elif opcion == 'd':
-            break
-        else:
-            print("Opción no válida. Intentá nuevamente.")
-
-def menu_crud_usuarios():
-    while True:
-        print(" \n-----------------")
-        print("| CRUD DE USUARIOS |")
-        print(" -------------------")
-
-        print("i. Agregar un nuevo usuario")
-        print("ii. Modificar un usuario")
-        print("iii. Eliminar un usuario")
-        print("iv. Volver al Menú Principal")
-
-        opcion = input("Seleccioná una opción: ").lower()
-
-        if opcion == 'i':
-            agregar_usuario()
-        elif opcion == 'ii':
-            modificar_usuario()
-        elif opcion == 'iii':
-            eliminar_usuario()
-        elif opcion == 'iv':
-            break
-        else:
-            print("Opción no válida. Intentá nuevamente.")
-
-def menu_mostrar_accesos():
-    while True:
-        print(" \n----------------")
-        print("| MOSTRAR ACCESOS |")
-        print(" ------------------")
-
-        print("i. Mostrar los accesos")
-        print("ii. Mostrar logs de intentos fallidos")
-        print("iii. Volver al Menú Principal")
-    
-        opcion = input("Seleccioná una opción: ").lower()
-
-        if opcion == 'i':
-            mostrar_accesos()
-        elif opcion == 'ii':
-            mostrar_logs_fallidos()
-        elif opcion == 'iii':
-            break
-        else:
-            print("Opción no válida. Intentá nuevamente.")
-
-def menu_ordenamiento_busqueda():
-    while True:
-        print(" \n-----------------------------------")
-        print("| ORDENAMIENTO Y BÚSQUEDA DE USUARIOS |")
-        print(" -------------------------------------")
-
-        print("i. Ordenar usuarios")
-        print("ii. Buscar y mostrar usuarios")
-        print("iii. Volver al Menú Principal")
-
-        opcion = input("Seleccioná una opción: ").lower()
-
-        if opcion == 'i':
-            ordenar_usuarios()       
-        elif opcion == 'ii':
-            menu_busqueda_usuarios()      
-        elif opcion == 'iii':
-            break
-        else:
-            print("Opción no válida. Intentá nuevamente.")
-
-def menu_busqueda_usuarios():
-    while True:
-        print("\nBuscar Usuarios:")
-        print("1. Por DNI")
-        print("2. Por username")
-        print("3. Por email")
-        print("4. Mostrar todos los usuarios")
-        print("5. Volver al Menú anterior")
-        
+        print("\nMenú Principal")
+        print("1. Usuarios y Accesos de la Aplicación")
+        print("2. Ingresar al sistema con los datos de Usuario")
+        print("3. Analisis de Datos")
+        print("4. Salir de la Aplicación")
         opcion = input("Seleccione una opción: ")
-        
-        if opcion == '1':
-            buscar_usuario_por_dni()
-        elif opcion == '2':
-            buscar_usuario_por_username()
-        elif opcion == '3':
-            buscar_usuario_por_email()
-        elif opcion == '4':
-            mostrar_todos_los_usuarios()
-        elif opcion == '5':
-            break
+        #USUARIOS Y ACCESOS A LA APLICACION
+        if opcion == '1':                                               
+            print("1.Quiero realizar un ABM de usuario:")
+            print("2.Quiero ver los registros de acceso:")
+            print("3.Quiero buscar/ ordenar usuarios:")
+            print("4.Quiero volver al Menu principal:")
+            opcion = input("Seleccione una opción: ")
+            #REALIZA ABM
+            if opcion =="1":  
+                gestionUsuario.gestionUsuario_ABM() #agrega, modifica, elimina usuarios
+                #VER REGISTROS DE ACCESOS  
+            elif opcion == "2":
+                gestionAccesos.mostrar_Accesos()
+                #BUSCAR / ORDENAR USUARIO
+            elif opcion == "3": 
+                gestionUsuario.gestionUsuario_BO() 
+            elif opcion == "4":
+                break  
+         #INGRESAR AL SISTEMA
+        elif opcion == '2':                                             
+             gestionUsuario.ingresar()
+         #ANALISIS DE DATOS
+        elif opcion == '3':                                             
+            registrosPluviales.registrosPluviales()
+         #SALIR DE LA APLICACION
+        elif opcion == '4':                                             
+            exit()
         else:
-            print("Opción no válida. Intente nuevamente.")
+            print("Opción no válida.")
+"""         elif opcion == '5':
+            print("Desea ordenar por metodo QUICK SORT, ingrese 1")
+            print("Desea ordenar por el metodo SORT de Python, ingrese 2")
+            eleccion= input("Seleccione una opcion: ")
+            if eleccion =='1':
+             ordenar_quick_sort(usuarios)
+            else:
+             ordenar_sort(usuarios)   
+        elif opcion =='6':    
+            mostrar_usuarios(usuarios)
+        elif opcion == '7':
+            nombre_usuario = input("Ingrese nombre de usuario: ")
+            password = input("Ingrese password: ")
+            usuario = next((u for u in usuarios if u.nombre_usuario == nombre_usuario and u.password == password), None)
+            if usuario:
+                print("Ingreso exitoso.")
+                registrar_acceso(usuario)
+                while True:
+                    print("\n1. Volver al Menú Principal")
+                    print("2. Salir")
+                    sub_opcion = input("Seleccione una opción: ")
+                    if sub_opcion == '1':
+                        break
+                    elif sub_opcion == '2':
+                        exit()
+            else:
+                print("Nombre de usuario o password incorrectos.")
+                registrar_logueo_fallido(nombre_usuario, password)
+        elif opcion == '8':
+             año = int(input("Ingrese el año (ej. 2023): "))
+             df = cargar_registros(año)
+             mes1 = input("Ingrese el mes que desea consultar (ej. Enero): ")
+             mes=mes1.capitalize() #pone en mayuscula la primer letra
+             mostrar_registros_mes(df, mes)
 
-def ingresar_al_Sistema():
-    while True:
-        print("\n---------------")
-        print("| INICIAR SESIÓN |")
-        print("-----------------")
-
+        elif opcion == '9':
+             año = int(input("Ingrese el año (ej. 2023): "))
+             df = cargar_registros(año)
+             graficar_lluvias(df, año)       
+        elif opcion == '10':
+            exit()
+        else:
+            print("Opción no válida.")
+"""
+if __name__ == "__main__":
+    menu_principal()
