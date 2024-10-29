@@ -51,78 +51,79 @@ def generar_datos_pluviales_ano(nombre_archivo):
     df_precipitaciones.to_csv(nombre_archivo, index=False)
     print(f"Se generó el archivo '{nombre_archivo}' con datos aleatorios.")
 
-def generar_datos_aleatorios():
-    # Cantidad de días en cada mes (considerando un año no bisiesto)
+def generar_datos_aleatorios(year):
+    # Generar datos aleatorios para un año completo (365 días)
+    np.random.seed(42)
+    precipitaciones = np.round(np.random.rand(365) * 100, 2)
+
+    # Ajustar los datos para tener la cantidad correcta de días por mes
     dias_por_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     columnas = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
     
-    # Generar datos aleatorios para cada mes
     datos_anuales = {}
+    inicio = 0
     for mes, dias in zip(columnas, dias_por_mes):
-        # Generar datos aleatorios para el mes actual
-        datos_anuales[mes] = np.round(np.random.rand(dias) * 100, 2)
+        datos_anuales[mes] = precipitaciones[inicio:inicio + dias]
+        inicio += dias
 
-    # Crear un DataFrame de Pandas
+    # Crear un DataFrame con los datos generados
     df_precipitaciones = pd.DataFrame(dict([(k, pd.Series(v)) for k, v in datos_anuales.items()]))
 
-    # Guardar como CSV
-    df_precipitaciones.to_csv('registroPluvial2023.csv', index=False)
-    print("Se generó un archivo de registros pluviales aleatorios para el año.")
+    # Guardar el DataFrame como un archivo CSV
+    os.makedirs('datosGenerados', exist_ok=True)
+    df_precipitaciones.to_csv(f'datosGenerados/registro_pluvial_{year}.csv', index=False)
+    print(f"Se generaron y guardaron los datos aleatorios para el año {year}.")
+
+    return df_precipitaciones
 
 def analisis_anual():
     # Pedir al usuario que ingrese el año para el análisis
     year = input("Ingrese el año para el análisis anual: ")
-    nombre_archivo = f'registro_pluvial_{year}.csv'
+    archivo_datos = f'datosGenerados/registro_pluvial_{year}.csv'
 
-    # Verificar si el archivo CSV existe
-    if not os.path.exists(nombre_archivo):
-        print(f"No se encontró el archivo '{nombre_archivo}'. Se generarán datos aleatorios para el año {year}.")
-        generar_datos_pluviales_ano(nombre_archivo)
+    # Verificar si ya existen datos para el año
+    if os.path.exists(archivo_datos):
+        print(f"Se encontraron datos existentes para el año {year}. Cargando datos...")
+        df = pd.read_csv(archivo_datos)
+    else:
+        print(f"No se encontraron datos para el año {year}. Generando datos aleatorios...")
+        df = generar_datos_aleatorios(year)
 
-    try:
-        # Cargar el archivo CSV con los registros pluviales del año
-        df = pd.read_csv(nombre_archivo)
+    # Crear la carpeta 'datosAnalizados' si no existe
+    os.makedirs('datosAnalizados', exist_ok=True)
 
-        # Crear la carpeta 'datosAnalizados' si no existe
-        os.makedirs('datosAnalizados', exist_ok=True)
+    # Mostrar estadísticas anuales
+    max_precip = df.max().max()  # Máximo de todo el año
+    min_precip = df.min().min()  # Mínimo de todo el año
+    avg_precip = df.mean().mean()  # Promedio de todo el año
 
-        # Mostrar estadísticas anuales
-        max_precip = df.max().max()  # Máximo de todo el año
-        min_precip = df.min().min()  # Mínimo de todo el año
-        avg_precip = df.mean().mean()  # Promedio de todo el año
+    print(f"\nAnálisis Anual de Precipitaciones para el año {year}:")
+    print(f"Máxima precipitación anual: {max_precip}")
+    print(f"Mínima precipitación anual: {min_precip}")
+    print(f"Promedio de precipitación anual: {avg_precip}")
 
-        print(f"\nAnálisis Anual de Precipitaciones para el año {year}:")
-        print(f"Máxima precipitación anual: {max_precip}")
-        print(f"Mínima precipitación anual: {min_precip}")
-        print(f"Promedio de precipitación anual: {avg_precip}")
+    # Gráfico de barras de las precipitaciones anuales
+    df.sum().plot(kind='bar', figsize=(10, 6), title=f'Precipitación Total por Mes en {year}')
+    plt.xlabel('Mes')
+    plt.ylabel('Precipitación Total')
+    plt.savefig(f'datosAnalizados/precipitacion_anual_{year}.png')
+    plt.show()
 
-        # Gráfico de barras de las precipitaciones anuales
-        df.sum().plot(kind='bar', figsize=(10, 6), title=f'Precipitación Total por Mes en {year}')
-        plt.xlabel('Mes')
-        plt.ylabel('Precipitación Total')
-        plt.savefig(f'datosAnalizados/precipitacion_anual_{year}.png')
-        plt.show()
+    # Gráfico de dispersión de precipitaciones anuales
+    plt.figure(figsize=(10, 6))
+    for mes in df.columns:
+        plt.scatter([mes] * len(df), df[mes], label=mes)
+    plt.title(f'Dispersión de Precipitaciones Anuales en {year}')
+    plt.xlabel('Mes')
+    plt.ylabel('Precipitación')
+    plt.savefig(f'datosAnalizados/dispersion_anual_{year}.png')
+    plt.show()
 
-        # Gráfico de dispersión de precipitaciones anuales
-        plt.figure(figsize=(10, 6))
-        for mes in df.columns:
-            plt.scatter([mes] * len(df), df[mes], label=mes)
-        plt.title(f'Dispersión de Precipitaciones Anuales en {year}')
-        plt.xlabel('Mes')
-        plt.ylabel('Precipitación')
-        plt.savefig(f'datosAnalizados/dispersion_anual_{year}.png')
-        plt.show()
-
-        # Gráfico circular de distribución anual
-        df.sum().plot(kind='pie', autopct='%1.1f%%', figsize=(8, 8), title=f'Distribución Anual de Precipitaciones en {year}')
-        plt.savefig(f'datosAnalizados/distribucion_anual_{year}.png')
-        plt.show()
-
-    except Exception as e:
-        print(f"Error durante el análisis anual: {e}")
-
-    return year  # Retorna el año seleccionado
+    # Gráfico circular de distribución anual
+    df.sum().plot(kind='pie', autopct='%1.1f%%', figsize=(8, 8), title=f'Distribución Anual de Precipitaciones en {year}')
+    plt.savefig(f'datosAnalizados/distribucion_anual_{year}.png')
+    plt.show()
 
 def elegir_mes_analizar(year=None):
     if not year:
