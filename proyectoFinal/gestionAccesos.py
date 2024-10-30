@@ -56,7 +56,7 @@ def guardar_accesos(accesos):
 
 def registrar_logueo_fallido(nombre_usuario, password):
     with open('logs.txt', 'a') as file:
-        file.write(f"{datetime.now()} - nombre de usuario: {nombre_usuario}, Password: {password}\n")
+        file.write(f"{datetime.now()} - Nombre de usuario: {nombre_usuario}, Contraseña: {password}\n")
 
 
 def cargar_logs():
@@ -70,14 +70,14 @@ def cargar_logs():
 
 #--------------------------1.2 Menu Mostrar los datos de acceso--------------------------------------------------------
 def mostrar_Accesos():
-    print("1. Mostrar los Accesos (datos de accesos.ispc)")
+    print("1. Mostrar los accesos (datos de accesos.ispc)")
     print("2. Mostrar los logs de intentos fallidos (datos de logs.txt)")
     print("3. Volver al Menú principal")
-    eleccion = input("ingrese una opcion: ")
+    eleccion = input("\nIngrese una opción: ")
     if eleccion == "1":
         accesos = cargar_accesos()
         for acceso in accesos:
-            print(f"ID:{acceso.id},Fecha Ingreso:{acceso.fechaIngreso},Fecha Salida:{acceso.fechaSalida},nombre de usuario:{acceso.usuarioLogueado}")
+            print(f"ID:{acceso.id},\nFecha Ingreso:{acceso.fechaIngreso},\nFecha Salida:{acceso.fechaSalida},\nNombre de usuario:{acceso.usuarioLogueado}")
     elif eleccion == "2":
         logs = cargar_logs()
         for lg in logs:
@@ -85,4 +85,4 @@ def mostrar_Accesos():
             #print(f"ID: {usuario.id}, nombre de usuario: {usuario.nombre_usuario}, Email: {usuario.email}")
     elif eleccion =="3":
          exit()
-    else: print("Opcion no válida")
+    else: print("Opción no válida")

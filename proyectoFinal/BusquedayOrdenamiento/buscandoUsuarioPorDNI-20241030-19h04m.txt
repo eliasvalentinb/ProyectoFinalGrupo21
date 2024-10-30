@@ -1,0 +1,1 @@
+Intento 1 - valor buscado 22666444 - valor medio 22666444 - Se encontro el usuario.

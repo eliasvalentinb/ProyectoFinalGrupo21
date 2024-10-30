@@ -27,9 +27,9 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             cursor.execute(sql) 
             resultados=cursor.fetchall()
             print(" ")
-            print("                    CATEGORIAS DE PRODUCTOS                         ")
+            print("                    CATEGORÍAS DE PRODUCTOS                         ")
             print("====================================================================")
-            print ("Podemos ofrecerte las siguientes opciones")
+            print ("Podemos ofrecerte las siguientes opciones: ")
             print("--------------------------------------------------------------------")
            
             categorias={}
@@ -40,7 +40,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             print( " ")
             print("--------------------------------------------------------------------")
             
-            Eleccion = int(input("ingrese el numero de la categoria elegida: "))
+            Eleccion = int(input("Ingrese el numero de la categoria elegida: "))
             sql =f"""select p.id_producto
                         ,p.descripcion
                         ,p.precio
@@ -50,7 +50,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             resultados=cursor.fetchall()
 
             print("====================================================================")
-            print ("Podemos ofrecerte los siguientes PRODUCTOS dentro de esta categoria")
+            print ("Podemos ofrecerte los siguientes PRODUCTOS dentro de esta categoría: ")
             print("--------------------------------------------------------------------")
             
             productos={}
@@ -61,10 +61,10 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             print( " ")
             print("--------------------------------------------------------------------")
 
-            id_prod = int(input("ingrese el numero del producto elegido: "))
+            id_prod = int(input("Ingrese el número del producto elegido: "))
             descrip = productos[id_prod][0]  # Obtener la descripción del producto
             precio = productos[id_prod][1]
-            print(f"¿Que candidad de {descrip} quiere comprar? ")
+            print(f"¿Qué candidad de {descrip} quiere comprar? ")
             cantidad = int(input(f"Ingrese la cantidad: "))
             Total = (cantidad * precio)
 

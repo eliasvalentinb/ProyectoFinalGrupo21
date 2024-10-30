@@ -78,32 +78,32 @@ def guardar_usuarios_orden_username(usuarios):
 # ----------------- AGREGAR - MODIFICAR - ELIMINAR USUARIO --------------------
 def agregar_usuario(usuarios):
     id = len(usuarios) + 1
-    nombre_usuario = input("Ingrese nombre de usuario: ")
-    dni = int(input("Ingrese DNI"))
-    password = input("Ingrese password: ")
-    email = input("Ingrese email: ")
+    nombre_usuario = input("Ingrese un nombre de usuario: ")
+    dni = int(input("Ingrese DNI: "))
+    password = input("Ingrese una contraseña: ")
+    email = input("Ingrese un correo electrónico: ")
     usuarios.append(Usuario(id, nombre_usuario,dni, password, email))
     guardar_usuarios(usuarios)
-    print("Usuario agregado exitosamente.")
+    print("¡Usuario agregado exitosamente!")
 
 def modificar_usuario(usuarios):
-    nombre_usuario = input("Ingrese el nombre de usuario del usuario a modificar: ")
+    nombre_usuario = input("Ingrese el username del usuario a modificar: ")
     for usuario in usuarios:
         if usuario.get_nombre_usuario() == nombre_usuario:
-            usuario.get_password() == input("Ingrese nuevo password: ")
-            usuario.get_email() == input("Ingrese nuevo email: ")
+            usuario.get_password() == input("Ingrese la nueva contraseña: ")
+            usuario.get_email() == input("Ingrese el nuevo correo electrónico: ")
             guardar_usuarios(usuarios)
-            print("Usuario modificado exitosamente.")
+            print("¡Usuario modificado exitosamente!")
             return
     print("Usuario no encontrado.")
 
 def eliminar_usuario(usuarios):
-    nombre_usuario = input("Ingrese el nombre de usuario o email del usuario a eliminar: ")
+    nombre_usuario = input("Ingrese el username o el correo del usuario a eliminar: ")
     for usuario in usuarios:
         if usuario.get_nombre_usuario() == nombre_usuario or usuario.get_email() == nombre_usuario:
             usuarios.remove(usuario)
             guardar_usuarios(usuarios)
-            print("Usuario eliminado exitosamente.")
+            print("¡Usuario eliminado exitosamente!")
             return
     print("Usuario no encontrado.")
 
@@ -142,12 +142,12 @@ def busqueda_binaria_dni2(usuarios, dni_buscado):
 
     # se valida si esta dentro de los DNI existentes
         if dni_buscado < usuarios_ordenados[inicio].get_dni():
-            log_file.write(f"el DNI a buscar {dni_buscado} no esta en base, es inferior al menor de los DNI registrados ({usuarios_ordenados[inicio].dni}).")
-            print(f"el DNI a buscar {dni_buscado} no esta en base, es inferior al menor de los DNI registrados ({usuarios_ordenados[inicio].dni}).")
+            log_file.write(f"El DNI a buscar {dni_buscado} no está en nuestra base, es inferior al menor de los DNI registrados ({usuarios_ordenados[inicio].dni}).")
+            print(f"El DNI a buscar {dni_buscado} no está en nuestra base, es inferior al menor de los DNI registrados ({usuarios_ordenados[inicio].dni}).")
             return None
         elif dni_buscado > usuarios_ordenados[fin].get_dni():
-            log_file.write(f"No se encuentra registrado el usuario con ese DNI debido a que el DNI a buscar {dni_buscado} es más grande que el más grande de los registrados: {usuarios_ordenados[fin].dni}.")
-            print(f"No se encuentra registrado el usuario con ese DNI debido a que el DNI a buscar {dni_buscado} es más grande que el más grande de los registrados: {usuarios_ordenados[fin].dni}.")
+            log_file.write(f"No se encuentra registrado un usuario con el DNI indicado debido a que el DNI a buscar {dni_buscado} es más grande que el más grande de los registrados: {usuarios_ordenados[fin].dni}.")
+            print(f"No se encuentra registrado un usuario con el DNI indicado debido a que el DNI a buscar {dni_buscado} es más grande que el más grande de los registrados: {usuarios_ordenados[fin].dni}.")
             return None
 
 
@@ -224,12 +224,12 @@ def buscar_usuario_username(usuarios):
 
 def mostrar_usuarios(usuarios):
     for usuario in usuarios:
-        print(f"ID: {usuario.get_id()}, nombre de usuario: {usuario.get_nombre_usuario()},DNI:{usuario.get_dni()}, Email: {usuario.get_email()}")
+        print(f"ID: {usuario.get_id()}, \nNombre de usuario: {usuario.get_nombre_usuario()}, \nDNI:{usuario.get_dni()}, \nEmail: {usuario.get_email()}")
 
 usuarios_username = cargar_usuarios_orden_username()
 def mostrar_usuarios_orden_username(usuarios_username):
     for usuario in usuarios_username:
-        print(f"ID: {usuario.get_id()}, nombre de usuario: {usuario.get_nombre_usuario()},DNI:{usuario.get_dni()}, Email: {usuario.get_email()}")
+        print(f"ID: {usuario.get_id()}, \nNombre de usuario: {usuario.get_nombre_usuario()}, \nDNI:{usuario.get_dni()}, \nEmail: {usuario.get_email()}")
         
 
 #---------------------------- Ordenar Usuarios ------------------------------
@@ -249,7 +249,7 @@ def ordenar_quick_sort(usuarios):
     usuarios_ordenados = quick_sort(usuarios)
     guardar_usuarios_orden_username(usuarios_ordenados)    #le hago guardar el resultado ordenado
     for usuario in usuarios_ordenados:
-        print(f"ID: {usuario.get_id()}, nombre de usuario: {usuario.get_nombre_usuario()},dni: {usuario.get_dni()}, Email: {usuario.get_email()}")
+        print(f"ID: {usuario.get_id()}, \nNombre de usuario: {usuario.get_nombre_usuario()}, \nDNI: {usuario.get_dni()}, \nEmail: {usuario.get_email()}")
 
 
 #------------------ 1.1. Acceder al CRUD de los usuarios en POO ---------------------------------
@@ -257,7 +257,7 @@ usuarios = cargar_usuarios() #carga en variable los usuarios
 print(usuarios)
 
 def gestionUsuario_ABM():
-    print("1. Agregar Nuevo usuario: ")
+    print("1. Agregar nuevo usuario: ")
     print("2. Modificar un usuario: ")
     print("3. Eliminar un usuario: ")
     print("4. Volver al menú principal o al anterior: ")
@@ -275,49 +275,49 @@ def gestionUsuario_ABM():
 #------------------ 1.3. Buscar - Ordenar ---------------------------------
 
 def gestionUsuario_BO():
-    print("1. Ordenar Usuarios por Username: ")
-    print("2. Buscar y Mostrar Usuarios: ")
+    print("1. Ordenar usuarios por Username: ")
+    print("2. Buscar y mostrar usuarios: ")
     print("3. Volver al menú principal o al anterior: ")
-    opcion = input("Seleccione una opción: ")
+    opcion = input("\nSeleccione una opción: ")
     if opcion =="1": #ordenar por username, crea el archivo usuariosOrdenadosPorUsername.ispc
         ordenar_quick_sort(usuarios)        #se aplica tecnica quick sort
     elif opcion =="2": #buscar y mostrar usarios
-        print("1. buscar usuario por dni: ")
-        print("2. Buscar usuario por username: ")
-        print("3. buscar usuario por email: ")
-        print("4. mostrar todos los usuarios")
-        opcion = input("ingrese una opcion: ")
+        print("\n1. Buscar usuario por dni: ")
+        print("2. Buscar por username: ")
+        print("3. Buscar por correo electrónico: ")
+        print("4. Mostrar todos los usuarios")
+        opcion = input("Ingrese una opción: ")
         if opcion == "1":
-            print("Que usuario quiere buscar:")
-            dni_usuario = int(input("ingrese el DNI: "))
+            print("\n¿Qué usuario quiere buscar?: ")
+            dni_usuario = int(input("\nIngrese el DNI: "))
             busqueda_binaria_dni2(usuarios, dni_usuario)
             print("*** Se buscó por DNI con la técnica de BUSQUEDA BINARIA ***")
         elif opcion == "2":
             buscar_usuario_username(usuarios)
         elif opcion == "3":
-            print("Que usuario quiere buscar:")
-            email= input("Ingrese el Email que desa buscar: ")
+            print("\n¿Qué usuario quiere buscar?: ")
+            email= input("Ingrese el correo que desea buscar: ")
             busqueda_secuencial(usuarios,email,"email")
             print("*** Se buscó por EMAIL con la técnica de BUSQUEDA SECUENCIAL ***")
         elif opcion == "4":
             print("1. Mostrar los usuarios del archivo usuarios.ispc")
             print("2. Mostar los usuarios del archivo usuariosOrdenadosPorUsername.ispc")
-            opcion = input("ingrese una opcion: ")
+            opcion = input("Ingrese una opción: ")
             if opcion == "1":
                 mostrar_usuarios(usuarios)
             elif opcion == "2":
                 mostrar_usuarios_orden_username(usuarios_username)
             else: 
-                print("opcion invalida")
+                print("Opción no válida.")
  
 
  #-------------------------------------------------------------------------------------------
 def ingresar():
-            nombre_usuario = input("Ingrese nombre de usuario: ")
-            password = input("Ingrese password: ")
+            nombre_usuario = input("Ingrese su nombre de usuario: ")
+            password = input("Ingrese su contraseña: ")
             usuario = next((u for u in usuarios if u.get_nombre_usuario() == nombre_usuario and u.get_password() == password), None)
             if usuario:
-                print("Ingreso exitoso.")
+                print("\n¡Ingreso exitoso!")
                 gestionAccesos.registrar_acceso(usuario)
                 while True:
                     print("\n1. Volver al Menú Principal")
@@ -328,5 +328,5 @@ def ingresar():
                     elif sub_opcion == '2':
                         exit()
             else:
-                print("Nombre de usuario o password incorrectos.")
+                print("Nombre de usuario o contraseña incorrectos.")
                 gestionAccesos.registrar_logueo_fallido(nombre_usuario, password)
