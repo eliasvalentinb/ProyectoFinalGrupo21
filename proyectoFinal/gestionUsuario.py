@@ -5,12 +5,43 @@ import os
 
 
 class Usuario:
-    def __init__(self, id, nombre_usuario,dni, password, email):
-        self.id = id
-        self.nombre_usuario = nombre_usuario
-        self.dni = dni                           
-        self.password = password
-        self.email = email
+    def __init__(self, id, nombre_usuario, dni, password, email):
+        self._id = id
+        self._nombre_usuario = nombre_usuario
+        self._dni = dni
+        self._password = password
+        self._email = email
+
+            # ENCAPSULAMIENTO
+
+    # Getters
+    def get_id(self):
+        return self._id
+
+    def get_nombre_usuario(self):
+        return self._nombre_usuario
+
+    def get_dni(self):
+        return self._dni
+
+    def get_password(self):
+        return self._password
+
+    def get_email(self):
+        return self._email
+
+    # Setters
+    def set_nombre_usuario(self, nombre_usuario):
+        self._nombre_usuario = nombre_usuario
+
+    def set_dni(self, dni):
+        self._dni = dni
+
+    def set_password(self, password):
+        self._password = password
+
+    def set_email(self, email):
+        self._email = email
 
 class Acceso:
     def __init__(self, id, fechaIngreso, fechaSalida, usuarioLogueado):
@@ -36,7 +67,7 @@ def cargar_usuarios_orden_username():
         return []
 
 def guardar_usuarios(usuarios):
-    usuarios.sort(key=lambda usuario:int(usuario.dni)) #ordena por DNI
+    usuarios.sort(key=lambda usuario:int(usuario.get_dni())) #ordena por DNI
     with open('usuarios.ispc', 'wb') as file:
         pickle.dump(usuarios, file)
 
@@ -58,9 +89,9 @@ def agregar_usuario(usuarios):
 def modificar_usuario(usuarios):
     nombre_usuario = input("Ingrese el nombre de usuario del usuario a modificar: ")
     for usuario in usuarios:
-        if usuario.nombre_usuario == nombre_usuario:
-            usuario.password = input("Ingrese nuevo password: ")
-            usuario.email = input("Ingrese nuevo email: ")
+        if usuario.get_nombre_usuario() == nombre_usuario:
+            usuario.get_password() == input("Ingrese nuevo password: ")
+            usuario.get_email() == input("Ingrese nuevo email: ")
             guardar_usuarios(usuarios)
             print("Usuario modificado exitosamente.")
             return
@@ -69,7 +100,7 @@ def modificar_usuario(usuarios):
 def eliminar_usuario(usuarios):
     nombre_usuario = input("Ingrese el nombre de usuario o email del usuario a eliminar: ")
     for usuario in usuarios:
-        if usuario.nombre_usuario == nombre_usuario or usuario.email == nombre_usuario:
+        if usuario.get_nombre_usuario() == nombre_usuario or usuario.get_email() == nombre_usuario:
             usuarios.remove(usuario)
             guardar_usuarios(usuarios)
             print("Usuario eliminado exitosamente.")
@@ -84,38 +115,18 @@ def busqueda_secuencial(usuarios, nombre_usuario,tipo):
     for intento, usuario in enumerate(usuarios, start=1):
      if tipo == "Username":
         if usuario.nombre_usuario == nombre_usuario:
-            print(f"Intento {intento}: {nombre_usuario} es igual a {usuario.nombre_usuario}. Se encontró en {intento} intentos.")
-            print(f"Usuario encontrado: ID: {usuario.id}, Nombre de usuario: {usuario.nombre_usuario}, DNI: {usuario.dni}, Email: {usuario.email}")
+            print(f"Intento {intento}: {nombre_usuario} es igual a {usuario.get_nombre_usuario()}. Se encontró en {intento} intentos.")
+            print(f"Usuario encontrado: ID: {usuario.get_id()}, Nombre de usuario: {usuario.get_nombre_usuario()}, DNI: {usuario.get_dni()}, Email: {usuario.get_email()}")
             return usuario
-        else:print(f"Intento {intento}: {nombre_usuario} es distinto a {usuario.nombre_usuario}")
+        else:print(f"Intento {intento}: {nombre_usuario} es distinto a {usuario.get_nombre_usuario()}")
      else:  
-        if usuario.email == nombre_usuario:
-            print(f"Intento {intento}: {nombre_usuario} es igual a {usuario.email}. Se encontró en {intento} intentos.")
-            print(f"Usuario encontrado: ID: {usuario.id}, Nombre de usuario: {usuario.nombre_usuario}, DNI: {usuario.dni}, Email: {usuario.email}")
+        if usuario.get_email() == nombre_usuario:
+            print(f"Intento {intento}: {nombre_usuario} es igual a {usuario.get_email()}. Se encontró en {intento} intentos.")
+            print(f"Usuario encontrado: ID: {usuario.get_id()}, Nombre de usuario: {usuario.get_nombre_usuario()}, DNI: {usuario.get_dni()}, Email: {usuario.get_email()}")
             return usuario
-        else:print(f"Intento {intento}: {nombre_usuario} es distinto a {usuario.email}")
+        else:print(f"Intento {intento}: {nombre_usuario} es distinto a {usuario.get_email()}")
     print("Usuario no encontrado.")
     return None
-
-"""def busqueda_binaria_dni(usuarios, nombre_usuario):
-    usuarios_ordenados = usuarios  
-    inicio = 0
-    fin = len(usuarios_ordenados) - 1
-
-    while inicio <= fin:
-        medio = (inicio + fin) // 2
-        if usuarios_ordenados[medio].dni == nombre_usuario:
-            usuario = usuarios_ordenados[medio]
-            print(f"Usuario encontrado: ID: {usuario.id}, Nombre de usuario: {usuario.nombre_usuario},DNI: {usuario.dni}, Email: {usuario.email}")
-            return usuario
-        elif usuarios_ordenados[medio].dni < nombre_usuario:
-            inicio = medio + 1
-        else:
-            fin = medio - 1
-    
-    print("Usuario no encontrado.")
-    return None"""
-
 
 def busqueda_binaria_dni2(usuarios, dni_buscado):
     
@@ -130,11 +141,11 @@ def busqueda_binaria_dni2(usuarios, dni_buscado):
     with open( ruta, 'w') as log_file:
 
     # se valida si esta dentro de los DNI existentes
-        if dni_buscado < usuarios_ordenados[inicio].dni:
+        if dni_buscado < usuarios_ordenados[inicio].get_dni():
             log_file.write(f"el DNI a buscar {dni_buscado} no esta en base, es inferior al menor de los DNI registrados ({usuarios_ordenados[inicio].dni}).")
             print(f"el DNI a buscar {dni_buscado} no esta en base, es inferior al menor de los DNI registrados ({usuarios_ordenados[inicio].dni}).")
             return None
-        elif dni_buscado > usuarios_ordenados[fin].dni:
+        elif dni_buscado > usuarios_ordenados[fin].get_dni():
             log_file.write(f"No se encuentra registrado el usuario con ese DNI debido a que el DNI a buscar {dni_buscado} es más grande que el más grande de los registrados: {usuarios_ordenados[fin].dni}.")
             print(f"No se encuentra registrado el usuario con ese DNI debido a que el DNI a buscar {dni_buscado} es más grande que el más grande de los registrados: {usuarios_ordenados[fin].dni}.")
             return None
@@ -143,11 +154,11 @@ def busqueda_binaria_dni2(usuarios, dni_buscado):
         while inicio <= fin:
             intento += 1
             medio = (inicio + fin) // 2
-            dni_medio = usuarios_ordenados[medio].dni
+            dni_medio = usuarios_ordenados[medio].get_dni()
             if dni_medio == dni_buscado:
                 usuario = usuarios_ordenados[medio]
                 log_file.write(f"Intento {intento} - valor buscado {dni_buscado} - valor medio {dni_medio} - Se encontro el usuario.\n")
-                print(f"Se encontró el usuario en {intento} intentos: ID: {usuario.id}, Nombre de usuario: {usuario.nombre_usuario}, DNI: {usuario.dni}, Email: {usuario.email}.")
+                print(f"Se encontró el usuario en {intento} intentos: ID: {usuario.get_id()}, Nombre de usuario: {usuario.get_nombre_usuario()}, DNI: {usuario.get_dni()}, Email: {usuario.get_email()}.")
                 return usuario
             elif dni_medio < dni_buscado:
                 log_file.write(f"Intento {intento} - valor buscado {dni_buscado} - valor medio {dni_medio} - Se busca a la derecha.\n")
@@ -158,26 +169,6 @@ def busqueda_binaria_dni2(usuarios, dni_buscado):
     log_file.write(f"Se realizaron {intento} intentos y no se encontró el DNI buscado, no está registrado.\n") 
     print(f"Se realizaron {intento} intentos y no se encontró el DNI buscado, no está registrado.")
     return None
-
-
-"""def busqueda_binaria_username(usuarios, nombre_usuario):
-    usuarios_ordenados = usuarios 
-    inicio = 0
-    fin = len(usuarios_ordenados) - 1
-
-    while inicio <= fin:
-        medio = (inicio + fin) // 2
-        if usuarios_ordenados[medio].nombre_usuario == nombre_usuario:
-            usuario = usuarios_ordenados[medio]
-            print(f"Usuario encontrado: ID: {usuario.id}, Nombre de usuario: {usuario.nombre_usuario},DNI: {usuario.dni}, Email: {usuario.email}")
-            return usuario
-        elif usuarios_ordenados[medio].nombre_usuario < nombre_usuario:
-            inicio = medio + 1
-        else:
-            fin = medio - 1
-    
-    print("Usuario no encontrado.")
-    return None"""
 
 def busqueda_binaria_username2(usuarios_username, nombre_usuario):
     usuarios_ordenados = usuarios_username
@@ -191,11 +182,11 @@ def busqueda_binaria_username2(usuarios_username, nombre_usuario):
     with open( ruta, 'w') as log_file:
 
     # se valida si esta dentro de los DNI existentes
-        if nombre_usuario < usuarios_ordenados[inicio].nombre_usuario:
+        if nombre_usuario < usuarios_ordenados[inicio].get_nombre_usuario():
             log_file.write(f"el usuario a buscar {nombre_usuario} no esta en base, es inferior al menor de los Usuarios registrados ({usuarios_ordenados[inicio].nombre_usuario}).")
             print(f"el usuario a buscar {nombre_usuario} no esta en base, es inferior al menor de los Usuarios registrados ({usuarios_ordenados[inicio].nombre_usuario}).")
             return None
-        elif nombre_usuario > usuarios_ordenados[fin].nombre_usuario:
+        elif nombre_usuario > usuarios_ordenados[fin].get_nombre_usuario():
             log_file.write(f"No se encuentra registrado el usuario supera el rango.")
             print(f"No se encuentra registrado el usuario supera el rango.")
             return None
@@ -204,11 +195,11 @@ def busqueda_binaria_username2(usuarios_username, nombre_usuario):
         while inicio <= fin:
             intento += 1
             medio = (inicio + fin) // 2
-            dni_medio = usuarios_ordenados[medio].nombre_usuario
+            dni_medio = usuarios_ordenados[medio].get_nombre_usuario()
             if dni_medio == nombre_usuario:
                 usuario = usuarios_ordenados[medio]
                 log_file.write(f"Intento {intento} - valor buscado {nombre_usuario} - valor medio {dni_medio} - Se encontro el usuario.\n")
-                print(f"Se encontró el usuario en {intento} intentos: ID: {usuario.id}, Nombre de usuario: {usuario.nombre_usuario}, DNI: {usuario.dni}, Email: {usuario.email}.")
+                print(f"Se encontró el usuario en {intento} intentos: ID: {usuario.get_id()}, Nombre de usuario: {usuario.get_nombre_usuario()}, DNI: {usuario.get_dni()}, Email: {usuario.get_email()}.")
                 return usuario
             elif dni_medio < nombre_usuario:
                 log_file.write(f"Intento {intento} - valor buscado {nombre_usuario} - valor medio {dni_medio} - Se busca a la derecha.\n")
@@ -233,27 +224,15 @@ def buscar_usuario_username(usuarios):
 
 def mostrar_usuarios(usuarios):
     for usuario in usuarios:
-        print(f"ID: {usuario.id}, nombre de usuario: {usuario.nombre_usuario},DNI:{usuario.dni}, Email: {usuario.email}")
+        print(f"ID: {usuario.get_id()}, nombre de usuario: {usuario.get_nombre_usuario()},DNI:{usuario.get_dni()}, Email: {usuario.get_email()}")
 
 usuarios_username = cargar_usuarios_orden_username()
 def mostrar_usuarios_orden_username(usuarios_username):
     for usuario in usuarios_username:
-        print(f"ID: {usuario.id}, nombre de usuario: {usuario.nombre_usuario},DNI:{usuario.dni}, Email: {usuario.email}")
+        print(f"ID: {usuario.get_id()}, nombre de usuario: {usuario.get_nombre_usuario()},DNI:{usuario.get_dni()}, Email: {usuario.get_email()}")
         
 
 #---------------------------- Ordenar Usuarios ------------------------------
-"""def ordenar_usuarios(usuarios):
-    # Ordenar la lista de usuarios en su lugar
-    usuarios.sort(key=lambda usuario: usuario.nombre_usuario)
-    with open('usuariosOrdenadosPorUsername.ispc', 'wb') as file:
-        pickle.dump(usuarios, file)
-    return usuarios
-
-def ordenar_sort(usuarios):
-    ordenar_usuarios(usuarios)  # Llama a la función que ordena
-    guardar_usuarios(usuarios)    #le hago guardar el resultado ordenado
-    for usuario in usuarios:
-        print(f"ID: {usuario.id}, nombre de usuario: {usuario.nombre_usuario}, Email: {usuario.email}")"""
     
 def quick_sort(usuarios):
     if len(usuarios) <= 1:
@@ -270,7 +249,7 @@ def ordenar_quick_sort(usuarios):
     usuarios_ordenados = quick_sort(usuarios)
     guardar_usuarios_orden_username(usuarios_ordenados)    #le hago guardar el resultado ordenado
     for usuario in usuarios_ordenados:
-        print(f"ID: {usuario.id}, nombre de usuario: {usuario.nombre_usuario},dni: {usuario.dni}, Email: {usuario.email}")
+        print(f"ID: {usuario.get_id()}, nombre de usuario: {usuario.get_nombre_usuario()},dni: {usuario.get_dni()}, Email: {usuario.get_email()}")
 
 
 #------------------ 1.1. Acceder al CRUD de los usuarios en POO ---------------------------------
@@ -336,7 +315,7 @@ def gestionUsuario_BO():
 def ingresar():
             nombre_usuario = input("Ingrese nombre de usuario: ")
             password = input("Ingrese password: ")
-            usuario = next((u for u in usuarios if u.nombre_usuario == nombre_usuario and u.password == password), None)
+            usuario = next((u for u in usuarios if u.get_nombre_usuario() == nombre_usuario and u.get_password() == password), None)
             if usuario:
                 print("Ingreso exitoso.")
                 gestionAccesos.registrar_acceso(usuario)
