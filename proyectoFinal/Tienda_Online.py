@@ -1,14 +1,19 @@
 def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, para luego asociarlo al pedido registrado en BBDD
- import datetime
+
+ from datetime import datetime
  import Conectar_desconectar
  import mysql.connector 
  from mysql.connector import Error
- conexion= Conectar_desconectar.conexion() 
+ conexion= Conectar_desconectar.conexion()
+
+ if conexion is None:  # Verifica si la conexión es None
+    print("No se pudo establecer la conexión a la base de datos.")  
+    return  # Sale de la función si no hay conexión 
  
  if conexion.is_connected():
 
-        cliente = usuario
-        carrito={}
+        cliente = usuario #recibe el usuario que accedio para registrar el pedido
+        carrito=[]
         total_compra = 0
         continuar = True
         while continuar:
@@ -38,7 +43,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             Eleccion = int(input("ingrese el numero de la categoria elegida: "))
             sql =f"""select p.id_producto
                         ,p.descripcion
-                        ,p.id_categoria
+                        ,p.precio
                         from producto p
                         where p.id_categoria ={Eleccion}"""
             cursor.execute(sql) 
@@ -50,9 +55,9 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             
             productos={}
             for fila in resultados:
-                id_producto, descripcion,id_categoria = fila  # Desempaquetar los resultados
-                productos[id_producto] = [descripcion,id_categoria]  # Llenar el diccionario
-                print(f"Ingrese: {id_producto}, para el producto: {descripcion} - precio unitario:  {id_categoria}")  
+                id_producto, descripcion,precio = fila  # Desempaquetar los resultados
+                productos[id_producto] = [descripcion,precio]  # Llenar el diccionario
+                print(f"Ingrese: {id_producto}, para el producto: {descripcion} - precio unitario: ${precio}")  
             print( " ")
             print("--------------------------------------------------------------------")
 
@@ -63,7 +68,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             cantidad = int(input(f"Ingrese la cantidad: "))
             Total = (cantidad * precio)
 
-            carrito[id_prod]=[cantidad,descrip,precio,Total]
+            carrito.append([id_prod,cantidad,descrip,precio,Total])
             total_compra += Total  # Acumula el total de la compra
 
             otra_compra = input("¿Desea agregar otro producto? (s/n): ")
@@ -74,16 +79,42 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
         print("                      SU CARRITO DE COMPRAS                         ")
         print("====================================================================")
 
-        for item in carrito.values():   
-            print(f"Cantidad: {item[0]} - {item[1]} - Precio: ${item[2]} - Total: ${item[3]}")
+        for item in carrito:   
+            print(f"Cantidad: {item[1]} - {item[2]} - Precio u.: ${item[3]} - Total: ${item[4]}")
         print("====================================================================")
         print(f"                          Total de la compra:       ${total_compra}")
 
+        #GUARDA LA FECHA PARA REGISTRAR EL PEDIDO
+        fecha = datetime.now()#.strftime("%Y%m%d-%Hh%Mm") #guarda la fecha
+        print(fecha)
+        print(cliente)
+        print(total_compra)
+        #INSERT A TABLA PEDIDO
+        cursor=conexion.cursor() #Genero el insert para completar los campos de la tabla pedidos
+        sql="INSERT INTO pedido(fecha,usuario,monto) VALUES (%s,%s,%s);"
+        valores=(fecha,cliente,total_compra)
+        cursor.execute(sql,valores)   
+        conexion.commit() 
 
-      # me falta sumar que pegue el pedido en la BBDD y luego el detalle de la compra
+        #BUSCA EL ID DEL ULTIMO PEDIDO PARA CARGAR EL DETALLE
+        sql=" select max(id_pedido) from pedido; "
+        cursor.execute(sql) 
+        resultado = cursor.fetchone()
+        id_pedido = resultado[0]
+        print(id_pedido)
+
+        #INSERTA EL DETALLE DE LOS PEDIDOS
+        for item in carrito:
+            sql="INSERT INTO detalle_pedido(id_pedido,id_producto,precio,cantidad) VALUES (%s,%s,%s,%s);"
+            valores=(id_pedido,item[0],item[3],item[1])
+            cursor.execute(sql,valores)   
+        conexion.commit() 
+        cursor.close()  # Cierra el cursor
+
+    
 
  Conectar_desconectar.desconexion(conexion)
 
 
 
-carrito()
+carrito("fcordoba")
