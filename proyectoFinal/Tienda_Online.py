@@ -86,9 +86,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
 
         #GUARDA LA FECHA PARA REGISTRAR EL PEDIDO
         fecha = datetime.now()#.strftime("%Y%m%d-%Hh%Mm") #guarda la fecha
-        print(fecha)
-        print(cliente)
-        print(total_compra)
+
         #INSERT A TABLA PEDIDO
         cursor=conexion.cursor() #Genero el insert para completar los campos de la tabla pedidos
         sql="INSERT INTO pedido(fecha,usuario,monto) VALUES (%s,%s,%s);"
@@ -101,7 +99,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
         cursor.execute(sql) 
         resultado = cursor.fetchone()
         id_pedido = resultado[0]
-        print(id_pedido)
+
 
         #INSERTA EL DETALLE DE LOS PEDIDOS
         for item in carrito:
