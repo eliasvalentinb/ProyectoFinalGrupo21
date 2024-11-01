@@ -15,34 +15,23 @@ def menu_principal():
         print("4. Salir de la Aplicación")
         opcion = input("\nSeleccione una opción: ")
         #USUARIOS Y ACCESOS A LA APLICACION
-        if opcion == '1':
-            print("\n -----------------")   
-            print("|USUARIOS Y ACCESOS|")
-            print(" -----------------")                                            
-            print("1.Realizar un ABM de usuario:")
-            print("2.Ver los registros de acceso:")
-            print("3.Buscar/ ordenar usuarios:")
-            print("4.Volver al Menu principal:")
-            opcion = input("\nSeleccione una opción: ")
-            #REALIZA ABM
-            if opcion =="1":  
-                gestionUsuario.gestionUsuario_ABM() #agrega, modifica, elimina usuarios
-                #VER REGISTROS DE ACCESOS  
-            elif opcion == "2":
-                gestionAccesos.mostrar_Accesos()
-                #BUSCAR / ORDENAR USUARIO
-            elif opcion == "3": 
-                gestionUsuario.gestionUsuario_BO() 
-            elif opcion == "4":
-                break  
+        if opcion == '1': 
+            gestionUsuario.usuarios_accesos()                                          
          #INGRESAR AL SISTEMA
-        elif opcion == '2':                                             
-             gestionUsuario.ingresar()
+        elif opcion == '2':
+            print("\n -------------------")   
+            print("| INGRESAR AL SISTEMA |")
+            print(" ---------------------")                                             
+            gestionUsuario.ingresar()
          #ANALISIS DE DATOS
-        elif opcion == '3':                                             
+        elif opcion == '3':
+            print("\n -------------------")   
+            print("| ANALISIS DE DATOS |")
+            print(" --------------------")                                             
             registrosPluviales.registrosPluviales()
          #SALIR DE LA APLICACION
-        elif opcion == '4':                                             
+        elif opcion == '4':
+            print("Gracias por su visita!")                                             
             exit()
         else:
             print("Opción no válida. Intente nuevamente.")
