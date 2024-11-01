@@ -224,7 +224,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuarios`),
   KEY `IdRol_idx` (`id_rol`),
   CONSTRAINT `IdRol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`idRol`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,7 +233,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'fcordoba','1234',3,'Federico','Cordoba','11111111111','mail@mail.com'),(2,'evaldez','1234',3,'Elías','Valdez','11111111112','mail@mail.com'),(3,'adelosanto','1234',3,'Adriel','Delosanto','11111111113','mail@mail.com'),(4,'ypesqueira','1234',3,'Yesica','Pesqueira','11111111114','mail@mail.com'),(5,'cmontivero','1234',3,'María Celeste','Montivero','11111111115','mail@mail.com'),(6,'lferreyra','1234',3,'Lourdes','Ferreyra Farías','11111111116','mail@mail.com'),(7,'vbengio','1234',3,'victor','bengio','2548963','v@v');
+INSERT INTO `usuario` VALUES (1,'fcordoba','1234',3,'Federico','Cordoba','11111111111','mail@mail.com'),(2,'evaldez','1234',3,'Elías','Valdez','11111111112','mail@mail.com'),(3,'adelosanto','1234',3,'Adriel','Delosanto','11111111113','mail@mail.com'),(4,'ypesqueira','1234',3,'Yesica','Pesqueira','11111111114','mail@mail.com'),(5,'cmontivero','1234',3,'María Celeste','Montivero','11111111115','mail@mail.com'),(6,'lferreyra','1234',3,'Lourdes','Ferreyra Farías','11111111116','mail@mail.com'),(7,'vbengio','1234',3,'victor','bengio','2548963','v@v'),(8,'Vendedor_Test','1234',2,'Vendedor_Test','Vendedor_Test','1111111111','vendedor@vendedor'),(9,'Admin_Test','1234',3,'Admin_Test','Admin_Test','1111111111','admin@admin');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -246,4 +246,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-01 10:05:42
+-- Dump completed on 2024-11-01 18:20:49
