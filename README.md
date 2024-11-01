@@ -31,7 +31,7 @@ El desarrollo de una tienda online permite automatizar la administración de pro
 y detallado de sus transacciones sin depender de sistemas externos o pagos adicionales. Además, se eligió este proyecto para poner en práctica el uso de bases de datos, conexiones remotas y operaciones CRUD, competencias fundamentales en el área de desarrollo de software y ciencia de datos.
 
 
-# EVIDENCIA 3
+#EVIDENCIA 3
 En la siguiente carpeta, de Evidencia3, encontraremos un proyecto de trabajo en donde anexamos a nuestra evidencia 2 ya presentada anteriormente. Un registro  de usuarios como el acceso se le anexo y tambien se le sumo un regitro flubial mensual en donde se puede ver la info guarda generando graficos en donde muestren dicha informacion de manera mas facil de leer y entendible.
 Su respectivo archivo BBDD tambien fue adaptado para poder guardar dichos datos nuevos pedidos.
 
