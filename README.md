@@ -9,7 +9,7 @@
 Este proyecto consiste en el desarrollo de un sistema de gestión integral para una tienda online, cuya función es organizar y manipular los datos de productos, clientes y transacciones en una base de datos estructurada en MySQL. La tienda online permite registrar, actualizar, eliminar y visualizar datos relevantes para la
 administración de inventario y ventas, brindando una solución completa de ecommerce de backend. La implementación de este sistema ha sido llevada a cabo en Python para la
 lógica de negocio y conexión a la base de datos, con MySQL como sistema de almacenamiento. Se utilizaron bibliotecas adicionales de Python, como mysql.connector para la conexión y pandas para el manejo de datos.
-## Estructura del proycto final
+## Estructura del proyecto final
 
 
 
