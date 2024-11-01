@@ -19,9 +19,6 @@
 -- Table structure for table `categoria`
 --
 
-CREATE DATABASE IF NOT EXISTS tienda_online_final;
-USE tienda_online_final;
-
 DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -57,8 +54,8 @@ CREATE TABLE `detalle_pedido` (
   `cantidad` int DEFAULT NULL,
   PRIMARY KEY (`id_detalle_pedido`),
   KEY `Id_producto_idx` (`id_producto`),
-  KEY `Id_pedido_idx` (`id_pedido`),
-  CONSTRAINT `Id_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
+  KEY `Id_pedido_D_idx` (`id_pedido`),
+  CONSTRAINT `Id_pedido_D` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
   CONSTRAINT `Id_producto_D` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -69,7 +66,7 @@ CREATE TABLE `detalle_pedido` (
 
 LOCK TABLES `detalle_pedido` WRITE;
 /*!40000 ALTER TABLE `detalle_pedido` DISABLE KEYS */;
-INSERT INTO `detalle_pedido` VALUES (1,9,3,2000,10);
+INSERT INTO `detalle_pedido` VALUES (1,1,10,3000,1);
 /*!40000 ALTER TABLE `detalle_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +113,7 @@ CREATE TABLE `pedido` (
   `usuario` varchar(75) NOT NULL,
   `monto` float NOT NULL,
   PRIMARY KEY (`id_pedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +122,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (1,'2024-10-30 18:17:30','fcordoba',160000),(2,'2024-10-30 18:24:17','fcordoba',20000),(3,'2024-10-30 18:25:45','fcordoba',40000),(4,'2024-10-30 18:30:35','fcordoba',80000),(5,'2024-10-30 18:32:18','fcordoba',25000),(6,'2024-10-30 18:50:27','fcordoba',47500),(7,'2024-10-30 18:54:30','fcordoba',39500),(8,'2024-10-30 18:56:28','fcordoba',34000),(9,'2024-10-30 18:58:54','fcordoba',20000);
+INSERT INTO `pedido` VALUES (1,'2024-11-01 00:09:01','fcordoba',3000);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +141,7 @@ CREATE TABLE `producto` (
   PRIMARY KEY (`id_producto`),
   KEY `Id_categoria_idx` (`id_categoria`),
   CONSTRAINT `Id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +150,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'Limpia Hornos',1,1000),(2,'Detergente',1,1500),(3,'Desengrasante',1,2000),(4,'Limpia Inodoros',2,3000),(5,'Lisoform',6,2450),(6,'Poet',6,6000),(7,'Lavandina',6,1200),(8,'Cif Gel',6,2000),(9,'Cera Para Piso',6,8000),(10,'Lustra Muesbles',3,3000),(11,'Limpia Vidrios',3,2500),(12,'Blem Electro',3,1400),(13,'Suavizante',4,6000),(14,'Jabon Liquido',4,1250),(15,'Jabon En Polvo',4,3245),(16,'Jabon En Pan',4,1000),(17,'Quita Manchas',4,6000),(18,'Escobas',5,7000),(19,'Escobillones',5,7000),(20,'Secadores',5,6000),(21,'Rejillas',5,3000),(22,'Esponjas',5,1500),(23,'Paño Amarillo',5,3000),(24,'Trapo Piso',5,2500);
+INSERT INTO `producto` VALUES (1,'Limpia Hornos',1,1000),(2,'Detergente',1,1500),(3,'Desengrasante',1,2000),(4,'Limpia Inodoros',2,3000),(5,'Lisoform',6,3400),(6,'Poet',6,6000),(7,'Lavandina',6,1200),(8,'Cif Gel',6,2000),(9,'Cera Para Piso',6,8000),(10,'Lustra Muesbles',3,3000),(11,'Limpia Vidrios',3,2500),(12,'Blem Electro',3,1400),(13,'Suavizante',4,6000),(14,'Jabon Liquido',4,1250),(15,'Jabon En Polvo',4,3245),(16,'Jabon En Pan',4,1000),(17,'Quita Manchas',4,6000),(18,'Escobas',5,7000),(19,'Escobillones',5,7000),(20,'Secadores',5,6000),(21,'Rejillas',5,3000),(22,'Esponjas',5,1500),(23,'Paño Amarillo',5,3000),(24,'Trapo Piso',5,3500),(25,'Perfumina',6,2545);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +224,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuarios`),
   KEY `IdRol_idx` (`id_rol`),
   CONSTRAINT `IdRol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`idRol`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +233,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'fcordoba','1234',3,'Federico','Cordoba','11111111111','mail@mail.com'),(2,'evaldez','1234',3,'Elías','Valdez','11111111112','mail@mail.com'),(3,'adelosanto','1234',3,'Adriel','Delosanto','11111111113','mail@mail.com'),(4,'ypesqueira','1234',3,'Yesica','Pesqueira','11111111114','mail@mail.com'),(5,'cmontivero','1234',3,'María Celeste','Montivero','11111111115','mail@mail.com'),(6,'lferreyra','1234',3,'Lourdes','Ferreyra Farías','11111111116','mail@mail.com');
+INSERT INTO `usuario` VALUES (1,'fcordoba','1234',3,'Federico','Cordoba','11111111111','mail@mail.com'),(2,'evaldez','1234',3,'Elías','Valdez','11111111112','mail@mail.com'),(3,'adelosanto','1234',3,'Adriel','Delosanto','11111111113','mail@mail.com'),(4,'ypesqueira','1234',3,'Yesica','Pesqueira','11111111114','mail@mail.com'),(5,'cmontivero','1234',3,'María Celeste','Montivero','11111111115','mail@mail.com'),(6,'lferreyra','1234',3,'Lourdes','Ferreyra Farías','11111111116','mail@mail.com'),(7,'vbengio','1234',3,'victor','bengio','2548963','v@v'),(8,'Vendedor_Test','1234',2,'Vendedor_Test','Vendedor_Test','1111111111','vendedor@vendedor'),(9,'Admin_Test','1234',3,'Admin_Test','Admin_Test','1111111111','admin@admin');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -249,4 +246,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-30 19:21:43
+-- Dump completed on 2024-11-01 18:20:49

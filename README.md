@@ -1,10 +1,37 @@
 # ProyectoFinalGrupo21
-# EVIDENCIA 3 
+# INTEGRANTES  
 *1.- Elías Valdez
 *2.- Federico Cordoba
 *3.- Adriel Delosanto
+# PROYECTO FINAL
+# SISTEMA DE GESTIÓN PARA TIENDA ONLINE 
+## Descripción
+Este proyecto consiste en el desarrollo de un sistema de gestión integral para una tienda online, cuya función es organizar y manipular los datos de productos, clientes y transacciones en una base de datos estructurada en MySQL. La tienda online permite registrar, actualizar, eliminar y visualizar datos relevantes para la
+administración de inventario y ventas, brindando una solución completa de ecommerce de backend. La implementación de este sistema ha sido llevada a cabo en Python para la
+lógica de negocio y conexión a la base de datos, con MySQL como sistema de almacenamiento. Se utilizaron bibliotecas adicionales de Python, como mysql.connector para la conexión y pandas para el manejo de datos.
+
+## Estructura del proyecto final
+
+Registro de Productos: Función para agregar nuevos productos a la base de datos.
+
+Actualización de Productos: Función para modificar los detalles de productos existentes.
+
+Eliminación de Productos: Función para eliminar productos del inventario.
+
+Registro de Clientes: Función para agregar nuevos clientes.
+
+Gestión de Transacciones: Funciones para registrar nuevas transacciones y actualizar el inventario.
+
+Visualización de Datos: Funciones para recuperar y mostrar datos relevantes, como el inventario actual y el historial de ventas.
+
+mysql.connector: Para establecer y gestionar la conexión con la base de datos MySQL.
+
+## Funcionalidades Principales
+El desarrollo de una tienda online permite automatizar la administración de productos e información de clientes, lo que facilita la organización de inventario y el seguimiento de ventas. Este proyecto busca ofrecer una herramienta útil y funcional que permita a pequeñas y medianas empresas llevar un registro eficiente
+y detallado de sus transacciones sin depender de sistemas externos o pagos adicionales. Además, se eligió este proyecto para poner en práctica el uso de bases de datos, conexiones remotas y operaciones CRUD, competencias fundamentales en el área de desarrollo de software y ciencia de datos.
 
 
+#EVIDENCIA 3
 En la siguiente carpeta, de Evidencia3, encontraremos un proyecto de trabajo en donde anexamos a nuestra evidencia 2 ya presentada anteriormente. Un registro  de usuarios como el acceso se le anexo y tambien se le sumo un regitro flubial mensual en donde se puede ver la info guarda generando graficos en donde muestren dicha informacion de manera mas facil de leer y entendible.
 Su respectivo archivo BBDD tambien fue adaptado para poder guardar dichos datos nuevos pedidos.
 

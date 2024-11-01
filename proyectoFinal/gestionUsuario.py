@@ -2,7 +2,8 @@ import pickle
 from datetime import datetime
 import gestionAccesos
 import os
-
+import Tienda_Online
+import Vendedor_Admin
 
 class Usuario:
     def __init__(self, id, nombre_usuario, dni, password, email):
@@ -43,12 +44,12 @@ class Usuario:
     def set_email(self, email):
         self._email = email
 
-class Acceso:
+"""class Acceso:
     def __init__(self, id, fechaIngreso, fechaSalida, usuarioLogueado):
         self.id = id
         self.fechaIngreso = fechaIngreso
         self.fechaSalida = fechaSalida
-        self.usuarioLogueado = usuarioLogueado
+        self.usuarioLogueado = usuarioLogueado"""
         
 #***********CRUD***************
 
@@ -77,6 +78,9 @@ def guardar_usuarios_orden_username(usuarios):
 
 # ----------------- AGREGAR - MODIFICAR - ELIMINAR USUARIO --------------------
 def agregar_usuario(usuarios):
+    print("\n ---------------------")
+    print("| AGREGAR NUEVO USUARIO |")
+    print(" -----------------------")
     id = len(usuarios) + 1
     nombre_usuario = input("Ingrese un nombre de usuario: ")
     dni = int(input("Ingrese DNI: "))
@@ -87,17 +91,23 @@ def agregar_usuario(usuarios):
     print("¡Usuario agregado exitosamente!")
 
 def modificar_usuario(usuarios):
+    print("\n ---------------------")
+    print("| MODIFICAR UN USUARIO |")
+    print(" ---------------------")
     nombre_usuario = input("Ingrese el username del usuario a modificar: ")
     for usuario in usuarios:
         if usuario.get_nombre_usuario() == nombre_usuario:
-            usuario.get_password() == input("Ingrese la nueva contraseña: ")
-            usuario.get_email() == input("Ingrese el nuevo correo electrónico: ")
+            usuario.set_password() == input("Ingrese la nueva contraseña: ")
+            usuario.set_email() == input("Ingrese el nuevo correo electrónico: ")
             guardar_usuarios(usuarios)
             print("¡Usuario modificado exitosamente!")
             return
     print("Usuario no encontrado.")
 
 def eliminar_usuario(usuarios):
+    print("\n ---------------------")
+    print("| ELIMINAR UN USUARIO |")
+    print(" ---------------------")
     nombre_usuario = input("Ingrese el username o el correo del usuario a eliminar: ")
     for usuario in usuarios:
         if usuario.get_nombre_usuario() == nombre_usuario or usuario.get_email() == nombre_usuario:
@@ -214,6 +224,9 @@ def busqueda_binaria_username2(usuarios_username, nombre_usuario):
 # -- buscar usuario por UserName
 
 def buscar_usuario_username(usuarios):
+    print("\n -------------------------")   
+    print("| BUSQUEDA POR USERNAME |")
+    print(" ---------------------------") 
     nombre_usuario = input("Ingrese el nombre de usuario para buscar: ")
     if not os.path.exists('usuariosOrdenadosPorUsername.ispc'):
         busqueda_secuencial(usuarios, nombre_usuario,"Username")
@@ -239,9 +252,9 @@ def quick_sort(usuarios):
         return usuarios
     else:
         pivot = usuarios[len(usuarios) // 2]  # Elegir el pivote
-        left = [usuario for usuario in usuarios if usuario.nombre_usuario < pivot.nombre_usuario]
-        middle = [usuario for usuario in usuarios if usuario.nombre_usuario == pivot.nombre_usuario]
-        right = [usuario for usuario in usuarios if usuario.nombre_usuario > pivot.nombre_usuario]
+        left = [usuario for usuario in usuarios if usuario._nombre_usuario < pivot._nombre_usuario]
+        middle = [usuario for usuario in usuarios if usuario._nombre_usuario == pivot._nombre_usuario]
+        right = [usuario for usuario in usuarios if usuario._nombre_usuario > pivot._nombre_usuario]
         return quick_sort(left) + middle + quick_sort(right)
 
 def ordenar_quick_sort(usuarios):
@@ -249,7 +262,7 @@ def ordenar_quick_sort(usuarios):
     usuarios_ordenados = quick_sort(usuarios)
     guardar_usuarios_orden_username(usuarios_ordenados)    #le hago guardar el resultado ordenado
     for usuario in usuarios_ordenados:
-        print(f"ID: {usuario.get_id()}, \nNombre de usuario: {usuario.get_nombre_usuario()}, \nDNI: {usuario.get_dni()}, \nEmail: {usuario.get_email()}")
+        print(f"ID: {usuario.get_id()}, Nombre de usuario: {usuario.get_nombre_usuario()}, DNI: {usuario.get_dni()}, Email: {usuario.get_email()}")
 
 
 #------------------ 1.1. Acceder al CRUD de los usuarios en POO ---------------------------------
@@ -257,12 +270,16 @@ usuarios = cargar_usuarios() #carga en variable los usuarios
 print(usuarios)
 
 def gestionUsuario_ABM():
+    print("\n ---------------------")
+    print("| GESTION USUARIO ABM |")
+    print(" ---------------------")
     print("1. Agregar nuevo usuario: ")
     print("2. Modificar un usuario: ")
     print("3. Eliminar un usuario: ")
     print("4. Volver al menú principal o al anterior: ")
+    print(" ")
     opcion = input("Seleccione una opción: ")
-
+    print(" ")
     if opcion =="1":
         agregar_usuario(usuarios)
     elif opcion =="2":
@@ -275,6 +292,9 @@ def gestionUsuario_ABM():
 #------------------ 1.3. Buscar - Ordenar ---------------------------------
 
 def gestionUsuario_BO():
+    print("\n -------------------------")   
+    print("| BUSCAR- ORDENAR USUARIOS |")
+    print(" ---------------------------") 
     print("1. Ordenar usuarios por Username: ")
     print("2. Buscar y mostrar usuarios: ")
     print("3. Volver al menú principal o al anterior: ")
@@ -310,7 +330,28 @@ def gestionUsuario_BO():
             else: 
                 print("Opción no válida.")
  
-
+def usuarios_accesos():
+    while True:
+     print("\n -------------------")   
+     print("| USUARIOS Y ACCESOS |")
+     print(" --------------------") 
+     print("1.Quiero realizar un ABM de usuario:")
+     print("2.Quiero ver los registros de acceso:")
+     print("3.Quiero buscar/ ordenar usuarios:")
+     print("4.Quiero volver al Menu principal:")
+     print(" ")
+     opcion = input("Seleccione una opción: ")
+     #REALIZA ABM
+     if opcion =="1":  
+      gestionUsuario_ABM() #agrega, modifica, elimina usuarios
+     #VER REGISTROS DE ACCESOS  
+     elif opcion == "2":
+      gestionAccesos.mostrar_Accesos()
+     #BUSCAR / ORDENAR USUARIO
+     elif opcion == "3": 
+            gestionUsuario_BO() 
+     elif opcion == "4":
+          break
  #-------------------------------------------------------------------------------------------
 def ingresar():
             nombre_usuario = input("Ingrese su nombre de usuario: ")
@@ -319,13 +360,29 @@ def ingresar():
             if usuario:
                 print("\n¡Ingreso exitoso!")
                 gestionAccesos.registrar_acceso(usuario)
+                """print("                  BIENVENIDO A LA TIENDA ONLINE                     ")
+                print("====================================================================")
+                print ("Podemos ofrecerte las siguientes opciones: ")
+                print("--------------------------------------------------------------------")"""
                 while True:
-                    print("\n1. Volver al Menú Principal")
-                    print("2. Salir")
+                    print("                  BIENVENIDO A LA TIENDA ONLINE                     ")
+                    print("====================================================================")
+                    print ("Podemos ofrecerte las siguientes opciones: ")
+                    print("--------------------------------------------------------------------")
+                    print("\n1. Realizar una Compra ")
+                    print("2. Ingresar como Vendedor/Admin")
+                    print("3. Volver al Menú Principal")
+                    print("4. Salir")
+                    print(" ")
                     sub_opcion = input("Seleccione una opción: ")
+                    print(" ")
                     if sub_opcion == '1':
-                        break
+                        Tienda_Online.carrito(nombre_usuario)
                     elif sub_opcion == '2':
+                        Vendedor_Admin.vend_adm()
+                    elif sub_opcion == '3':
+                        break                    
+                    elif sub_opcion == '4':
                         exit()
             else:
                 print("Nombre de usuario o contraseña incorrectos.")
