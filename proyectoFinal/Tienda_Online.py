@@ -1,5 +1,6 @@
-def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, para luego asociarlo al pedido registrado en BBDD
-
+def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
+                      # para luego asociarlo al pedido registrado en BBDD
+                      
  from datetime import datetime
  import Conectar_desconectar
  import mysql.connector 
@@ -40,7 +41,7 @@ def carrito(usuario): #la funcion recibe como parametro el usuario que accedio, 
             print( " ")
             print("--------------------------------------------------------------------")
             
-            Eleccion = int(input("Ingrese el numero de la categoria elegida: "))
+            Eleccion = int(input("Ingrese el número de la categoria elegida: "))
             sql =f"""select p.id_producto
                         ,p.descripcion
                         ,p.precio
